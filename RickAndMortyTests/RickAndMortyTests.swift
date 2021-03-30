@@ -10,17 +10,26 @@ import XCTest
 
 class RickAndMortyTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testParsing() throws {
+        do {
+            let bundle = Bundle(for: RickAndMortyTests.self)
+            guard let url = bundle.url(forResource: "Character", withExtension: "json") else {
+                XCTFail()
+                return
+            }
+            let data = try Data(contentsOf: url)
+            let decoder = JSONDecoder()
+            let character = try decoder.decode(GetAllCharactersResponseModel.self, from: data)
+            
+            //Projede kullanilacak olanlar test edimistir.
+            
+            XCTAssertEqual(character.id, 1)
+            XCTAssertEqual(character.name, "Rick Sanchez")
+            XCTAssertEqual(character.status, "Alive")
+            XCTAssertEqual(character.species, "Human")
+        } catch {
+            XCTFail()
+        }
     }
 
     func testPerformanceExample() throws {
