@@ -59,11 +59,11 @@ class CharacterListViewController: UIViewController {
     
     
     private func setUpUI() {
-        
-        tableView.frame = view.bounds
+        view.backgroundColor = .white
+//        tableView.frame = view.bounds
         
         NSLayoutConstraint.activate([
-            
+
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

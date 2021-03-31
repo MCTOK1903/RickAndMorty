@@ -10,7 +10,8 @@ import Foundation
 struct GetAllCharactersResponseModel: Codable, Hashable {
     
     var id: Int
-    let name, status, species, type: String
+    let name, species, type: String
+    let status: CharacterStatus
     let gender: String
     let origin, location: Location
     let image: String
@@ -25,8 +26,23 @@ struct Location: Codable, Hashable {
     let url: String
 }
 
-enum CharacterStatus: String {
+enum CharacterStatus: String, Codable {
     case dead = "Dead"
     case alive = "Alive"
     case unknown = "unknown"
+    
+    init(from decoder: Decoder) throws {
+        let label = try decoder.singleValueContainer().decode(String.self)
+        
+        switch label {
+        case "Dead":
+            self = .dead
+        case "Alive":
+            self = .alive
+        case "unknown":
+            self = .unknown
+        default:
+            self = .unknown
+        }
+    }
 }

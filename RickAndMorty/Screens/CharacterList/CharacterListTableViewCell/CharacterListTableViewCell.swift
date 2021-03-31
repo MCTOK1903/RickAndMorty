@@ -21,12 +21,6 @@ class CharacterListTableViewCell: UITableViewCell {
     
     // MARK: View
     
-    let parentView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     let characterImage: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +46,6 @@ class CharacterListTableViewCell: UITableViewCell {
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.numberOfLines = 0
-        label.backgroundColor = .white
         return label
     }()
     
@@ -63,7 +56,6 @@ class CharacterListTableViewCell: UITableViewCell {
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.numberOfLines = 0
-        label.backgroundColor = .white
         return label
     }()
     
@@ -74,7 +66,6 @@ class CharacterListTableViewCell: UITableViewCell {
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.numberOfLines = 0
-        label.backgroundColor = .white
         return label
     }()
     
@@ -101,20 +92,30 @@ class CharacterListTableViewCell: UITableViewCell {
     
     private func configureCellContent() {
         guard let character = self.character else { return }
-        characterNameLabel.text = character.name
-        characterSatatusLabel.text = character.status
-        characterSpeciesLabel.text = character.species
+        characterNameLabel.text = "Name: " + character.name
+        characterSatatusLabel.text = "Status: " + character.status.rawValue
+        characterSpeciesLabel.text = "Species: " + character.species
         characterImage.kf.setImage(with: URL(string: character.image))
+        
+        switch character.status {
+        case .alive:
+            contentView.backgroundColor = .systemGreen
+        case .dead:
+            contentView.backgroundColor = .systemRed
+        case .unknown:
+            contentView.backgroundColor = .systemGray2
+        }
     }
     
     private func configureCell() {
-        addSubview(parentView)
         addSubview(characterImage)
         addSubview(verticalStack)
 
         verticalStack.addArrangedSubview(characterNameLabel)
         verticalStack.addArrangedSubview(characterSatatusLabel)
         verticalStack.addArrangedSubview(characterSpeciesLabel)
+        
+        characterImage.layer.cornerRadius = 16
         
         configureAutoLayoutConstraints()
     }
@@ -124,34 +125,29 @@ class CharacterListTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             
-            parentView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            parentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            parentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: padding),
-            parentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: padding),
-            
-            characterImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            characterImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            characterImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: padding),
-            characterImage.heightAnchor.constraint(equalToConstant: contentView.frame.height - 16),
-            characterImage.widthAnchor.constraint(equalToConstant: contentView.frame.width * 0.4),
+            characterImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding * 2),
+            characterImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding * 2),
+            characterImage.heightAnchor.constraint(equalToConstant: contentView.frame.height - (padding * 2) - (padding / 2)),
+            characterImage.widthAnchor.constraint(equalToConstant: contentView.frame.width * 0.40),
+            characterImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: padding * 2),
             
             verticalStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             verticalStack.leadingAnchor.constraint(equalTo: characterImage.trailingAnchor, constant: padding * 2),
-            verticalStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: padding),
+            verticalStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             verticalStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: padding),
             
             characterNameLabel.topAnchor.constraint(equalTo: verticalStack.topAnchor, constant: padding),
             characterNameLabel.leadingAnchor.constraint(equalTo: verticalStack.leadingAnchor, constant: padding),
-            characterNameLabel.trailingAnchor.constraint(equalTo: verticalStack.trailingAnchor, constant: padding),
+            characterNameLabel.trailingAnchor.constraint(equalTo: verticalStack.trailingAnchor, constant: -padding),
             
             characterSatatusLabel.topAnchor.constraint(equalTo: characterNameLabel.bottomAnchor, constant: padding),
             characterNameLabel.leadingAnchor.constraint(equalTo: verticalStack.leadingAnchor, constant: padding),
-            characterNameLabel.trailingAnchor.constraint(equalTo: verticalStack.trailingAnchor, constant: padding),
+            characterNameLabel.trailingAnchor.constraint(equalTo: verticalStack.trailingAnchor, constant: -padding),
             
             characterSpeciesLabel.topAnchor.constraint(equalTo: characterSatatusLabel.bottomAnchor, constant: padding),
             characterSpeciesLabel.leadingAnchor.constraint(equalTo: verticalStack.leadingAnchor, constant: padding),
             characterSpeciesLabel.trailingAnchor.constraint(equalTo: verticalStack.trailingAnchor, constant: padding),
-            characterSpeciesLabel.bottomAnchor.constraint(equalTo: verticalStack.bottomAnchor, constant: padding)
+            characterSpeciesLabel.bottomAnchor.constraint(equalTo: verticalStack.bottomAnchor, constant: -padding)
         ])
     }
 }
