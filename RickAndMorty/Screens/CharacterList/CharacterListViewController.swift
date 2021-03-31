@@ -18,14 +18,14 @@ class CharacterListViewController: UIViewController {
         tableView.separatorStyle = .none
         return tableView
     }()
-
+    
     // MARK: Properties
-
+    
     let service = Services()
     private var allChacters: [GetAllCharactersResponseModel] = []
-    private var viewModel: CharacterListViewModelType? {
+    private var viewModel: CharacterListViewModelType {
         didSet {
-            viewModel?.delegate = self
+            viewModel.delegate = self
         }
     }
     
@@ -47,7 +47,7 @@ class CharacterListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = CharacterListViewModel(service: service)
-        viewModel?.loadAllCharacter()
+        viewModel.loadAllCharacter()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -60,10 +60,9 @@ class CharacterListViewController: UIViewController {
     
     private func setUpUI() {
         view.backgroundColor = .white
-//        tableView.frame = view.bounds
         
         NSLayoutConstraint.activate([
-
+            
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -73,7 +72,6 @@ class CharacterListViewController: UIViewController {
 }
 
 // MARK: - CharacterListViewModelDelegate
-
 
 extension CharacterListViewController: CharacterListViewModelDelegate {
     
@@ -91,12 +89,14 @@ extension CharacterListViewController: CharacterListViewModelDelegate {
     
     func navigate(to route: ChracterListRoute) {
         switch route {
-        case .detail:
-            break
+        case .detail(let viewModel):
+            let vc = CharacterDetailBuilder.build(with: viewModel)
+            show(vc, sender: self)
         }
     }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension CharacterListViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -115,5 +115,9 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
         let cellHeight: CGFloat = screenHeight * 0.2
         
         return CGFloat(cellHeight)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.selectCharacter(with: allChacters[indexPath.item])
     }
 }

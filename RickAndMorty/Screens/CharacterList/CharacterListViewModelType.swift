@@ -10,6 +10,7 @@ import Foundation
 protocol CharacterListViewModelType {
     var delegate: CharacterListViewModelDelegate? { get set }
     func loadAllCharacter()
+    func selectCharacter(with character: GetAllCharactersResponseModel)
 }
 
 protocol CharacterListViewModelDelegate {
@@ -25,5 +26,5 @@ enum CharacterListViewModelOutput: Equatable {
 
 enum ChracterListRoute {
     // TODO: add (detailType)
-    case detail
+    case detail(CharacterDetailViewModelType)
 }

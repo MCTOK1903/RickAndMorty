@@ -22,6 +22,12 @@ final class CharacterListViewModel: CharacterListViewModelType {
     }
     
     // MARK: Funcs
+    
+    func selectCharacter(with character: GetAllCharactersResponseModel) {
+        let viewModel = CharacterDetailViewModel(character: character)
+        delegate?.navigate(to: .detail(viewModel))
+    }
+    
     func loadAllCharacter() {
         notify(.updateTitle("RickAndMorty"))
         
@@ -41,8 +47,9 @@ final class CharacterListViewModel: CharacterListViewModelType {
         }
     }
     
+    
+    
     private func notify(_ output: CharacterListViewModelOutput) {
         delegate?.handleViewModelOutput(output)
     }
-    
 }
