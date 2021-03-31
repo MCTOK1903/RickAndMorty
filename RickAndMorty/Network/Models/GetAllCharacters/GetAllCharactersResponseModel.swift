@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GetAllCharactersResponseModel: Codable {
+struct GetAllCharactersResponseModel: Codable, Hashable {
     
     var id: Int
     let name, status, species, type: String
@@ -20,7 +20,7 @@ struct GetAllCharactersResponseModel: Codable {
     var isFavorite: Bool?
 }
 
-struct Location: Codable {
+struct Location: Codable, Hashable {
     let name: String
     let url: String
 }
