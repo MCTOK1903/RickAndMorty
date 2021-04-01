@@ -70,6 +70,18 @@ final class CharacterListViewModel: CharacterListViewModelType {
         return self.characters
     }
     
+    func returnnextPageUrl() -> String {
+        let nextPage = UserDefaults.standard.string(forKey: "nextPage")
+    
+        let splitString = nextPage?.components(separatedBy: "/")
+        
+        if let nextPageURL = splitString?.last {
+            return nextPageURL
+        }
+        
+        return ""
+    }
+    
     private func notify(_ output: CharacterListViewModelOutput) {
         delegate?.handleViewModelOutput(output)
     }

@@ -13,7 +13,8 @@ protocol CharacterListViewModelType {
     func selectCharacter(with character: GetAllCharactersResponseModel)
     func getNextCharacters(pagination: Bool, nextUrl: String, completion: @escaping () -> Void)
     func returnNextCharacters() -> [GetAllCharactersResponseModel]
-    func returnPagination() -> Bool 
+    func returnPagination() -> Bool
+    func returnnextPageUrl() -> String
 }
 
 protocol CharacterListViewModelDelegate {

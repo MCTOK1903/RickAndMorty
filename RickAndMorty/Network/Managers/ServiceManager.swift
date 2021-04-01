@@ -15,6 +15,7 @@ class ServiceManager {
     public static let shared: ServiceManager = ServiceManager()
     
     var isPagination = false
+    let defaults = UserDefaults.standard
 }
 
 extension ServiceManager {
@@ -37,8 +38,8 @@ extension ServiceManager {
             responseModel.request = request
             
             
-            if let results = responseModel.results {
-                print("Success")
+            if let results = responseModel.results, let nextPage = responseModel.info?.next {
+                self.defaults.set(nextPage, forKey: "nextPage")
                 completion(Result.success(results))
             }else {
                 print(response.error?.errorDescription ?? "\(String(describing: response.error?.errorDescription))")

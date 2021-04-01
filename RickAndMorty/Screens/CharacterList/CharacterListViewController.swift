@@ -130,8 +130,8 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
             guard !viewModel.returnPagination() else {
                 return
             }
-            
-            self.viewModel.getNextCharacters(pagination: true, nextUrl: "/character/?page=2") {
+            let nextPageUrl = viewModel.returnnextPageUrl()
+            self.viewModel.getNextCharacters(pagination: true, nextUrl: "/" + nextPageUrl) {
                 self.allChacters = self.viewModel.returnNextCharacters()
                 DispatchQueue.main.async { [weak self] in
                     self?.tableView.reloadData()
