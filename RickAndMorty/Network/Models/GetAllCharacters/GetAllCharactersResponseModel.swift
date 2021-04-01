@@ -19,6 +19,8 @@ struct GetAllCharactersResponseModel: Codable, Hashable {
     let url: String
     let created: String
     var isFavorite: Bool?
+    var totalEpisodesCount: Int?
+    var lastSeenEpisodeName: String?
 }
 
 struct Location: Codable, Hashable {

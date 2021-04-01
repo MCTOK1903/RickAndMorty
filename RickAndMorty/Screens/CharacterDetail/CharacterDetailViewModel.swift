@@ -23,6 +23,17 @@ final class CharacterDetailViewModel: CharacterDetailViewModelType {
     // MARK: Funcs
     
     func load() {
+        calculateTotalEpisodesCount()
+        findLastSeenEpisode()
         delegate?.showDetail(character)
+    }
+    
+    func calculateTotalEpisodesCount() {
+        self.character.totalEpisodesCount = self.character.episode.count
+    }
+    
+    func findLastSeenEpisode() {
+        let splitSting = self.character.episode.last?.components(separatedBy: "/")
+        self.character.lastSeenEpisodeName = splitSting?.last
     }
 }
