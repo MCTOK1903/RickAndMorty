@@ -83,7 +83,9 @@ extension CharacterListViewController: CharacterListViewModelDelegate {
             print(isLoading)
         case .showCharacterList(let characters):
             self.allChacters = characters
-            self.tableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
+            }
         }
     }
     
@@ -98,7 +100,7 @@ extension CharacterListViewController: CharacterListViewModelDelegate {
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 
-extension CharacterListViewController: UITableViewDelegate, UITableViewDataSource {
+extension CharacterListViewController: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.allChacters.count
@@ -119,5 +121,22 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.selectCharacter(with: allChacters[indexPath.item])
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > tableView.contentSize.height-50-scrollView.frame.size.height {
+            
+            guard !viewModel.returnPagination() else {
+                return
+            }
+            
+            self.viewModel.getNextCharacters(pagination: true, nextUrl: "/character/?page=2") {
+                self.allChacters = self.viewModel.returnNextCharacters()
+                DispatchQueue.main.async { [weak self] in
+                    self?.tableView.reloadData()
+                }
+            }
+        }
     }
 }

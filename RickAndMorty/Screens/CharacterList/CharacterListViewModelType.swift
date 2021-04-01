@@ -11,6 +11,9 @@ protocol CharacterListViewModelType {
     var delegate: CharacterListViewModelDelegate? { get set }
     func loadAllCharacter()
     func selectCharacter(with character: GetAllCharactersResponseModel)
+    func getNextCharacters(pagination: Bool, nextUrl: String, completion: @escaping () -> Void)
+    func returnNextCharacters() -> [GetAllCharactersResponseModel]
+    func returnPagination() -> Bool 
 }
 
 protocol CharacterListViewModelDelegate {

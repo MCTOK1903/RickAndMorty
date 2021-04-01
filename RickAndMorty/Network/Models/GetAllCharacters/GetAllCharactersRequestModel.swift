@@ -9,7 +9,10 @@ import Foundation
 
 class GetAllCharactersReqestModel: RequestModel {
     
-    override init() {
+    private var url: String?
+    
+    init(url: String? = nil) {
+        self.url = url
         super.init()
     }
     
@@ -18,6 +21,10 @@ class GetAllCharactersReqestModel: RequestModel {
     }
     
     override var path: String {
-        return Constant.NetworkConstant.allCharacters
+        if let url = url {
+            return url
+        }  else {
+            return Constant.NetworkConstant.allCharacters
+        }
     }
 }

@@ -14,6 +14,7 @@ final class CharacterListViewModel: CharacterListViewModelType {
     var delegate: CharacterListViewModelDelegate?
     private var service: ServiceType
     private var characters: [GetAllCharactersResponseModel] = []
+    private var nextUrl: String = ""
     
     // MARK: Init
     
@@ -33,13 +34,13 @@ final class CharacterListViewModel: CharacterListViewModelType {
         
         notify(.setLoading(true))
         
-        service.getAllCharacters { [weak self] (result) in
+        service.getAllCharacters(url: "", pagination: false) { [weak self] (result) in
             
             guard let self = self else { return }
             
             switch result {
             case .success(let characters):
-                self.characters = characters
+                self.characters.append(contentsOf: characters)
                 self.notify(.showCharacterList(self.characters))
             case .failure(let error):
                 print("Error -> \(error)")
@@ -47,7 +48,27 @@ final class CharacterListViewModel: CharacterListViewModelType {
         }
     }
     
+    func getNextCharacters(pagination: Bool, nextUrl: String, completion: @escaping () -> Void) {
+        service.getAllCharacters(url: nextUrl, pagination: pagination) { [weak self] (result) in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let characters):
+                self.characters.append(contentsOf: characters)
+                completion()
+            case .failure(let error):
+                print("Error -> \(error)")
+            }
+        }
+    }
     
+    func returnPagination() -> Bool {
+        return ServiceManager.shared.isPagination
+    }
+    
+    func returnNextCharacters() -> [GetAllCharactersResponseModel] {
+        return self.characters
+    }
     
     private func notify(_ output: CharacterListViewModelOutput) {
         delegate?.handleViewModelOutput(output)

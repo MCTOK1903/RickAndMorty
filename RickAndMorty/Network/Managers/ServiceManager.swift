@@ -13,11 +13,16 @@ class ServiceManager {
     // MARK: Properties
     
     public static let shared: ServiceManager = ServiceManager()
+    
+    var isPagination = false
 }
 
 extension ServiceManager {
     
-    func sendRequest<T:Codable>(request:RequestModel,completion: @escaping(Swift.Result<T, ErrorModel>)-> Void) {
+    func sendRequest<T:Codable>(pagination:Bool = false , request:RequestModel,completion: @escaping(Swift.Result<T, ErrorModel>)-> Void) {
+        if isPagination {
+            isPagination = true
+        }
         
         AF.request(request.urlRequest()).validate().responseJSON { (response) in
             
@@ -39,6 +44,10 @@ extension ServiceManager {
                 print(response.error?.errorDescription ?? "\(String(describing: response.error?.errorDescription))")
                 print(responseModel.error ?? "!")
                 completion(Result.failure(ErrorModel(responseModel.error ?? "\(ErrorModel.genealError())")))
+            }
+            
+            if pagination {
+                self.isPagination = false
             }
         }
     }

@@ -11,7 +11,7 @@ protocol ServiceType {
     
     typealias completionHandler<T> = Swift.Result<T, ErrorModel>
     
-    func getAllCharacters(completion: @escaping(completionHandler<[GetAllCharactersResponseModel]>) -> Void)
+    func getAllCharacters(url: String?, pagination: Bool, completion: @escaping(completionHandler<[GetAllCharactersResponseModel]>) -> Void)
     
     func getCharacterr(characterId: Int, completion: @escaping(completionHandler<GetAllCharactersResponseModel>) -> Void)
     
@@ -23,9 +23,16 @@ public class Services: ServiceType {
     //  T = ResponseMoodel Type
     typealias completionHandler<T> = Swift.Result<T, ErrorModel>
         
-    func getAllCharacters(completion: @escaping(completionHandler<[GetAllCharactersResponseModel]>) -> Void) {
-        ServiceManager.shared.sendRequest(request: GetAllCharactersReqestModel()) { (result) in
-            completion(result)
+    func getAllCharacters(url: String? = nil, pagination: Bool, completion: @escaping(completionHandler<[GetAllCharactersResponseModel]>) -> Void) {
+        if pagination {
+            ServiceManager.shared.sendRequest(pagination: pagination, request: GetAllCharactersReqestModel(url: url)) { (result) in
+                completion(result)
+            }
+
+        } else {
+            ServiceManager.shared.sendRequest(pagination: pagination, request: GetAllCharactersReqestModel()) { (result) in
+                completion(result)
+            }
         }
     }
     

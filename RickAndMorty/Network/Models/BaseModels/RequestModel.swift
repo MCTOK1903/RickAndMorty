@@ -53,7 +53,6 @@ extension RequestModel {
                 endpoint.append("?\(parameter.key)=\(value)")
             }
         }
-        
         print(endpoint)
         
         var request: URLRequest = URLRequest(url: URL(string: endpoint)!)
