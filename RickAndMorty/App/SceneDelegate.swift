@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = UINavigationController(rootViewController: CharacterListBuilder.build())
         window?.makeKeyAndVisible()
         
+        UserDefaults.standard.removeObject(forKey: Constant.UserSessionConstant.nextPage)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

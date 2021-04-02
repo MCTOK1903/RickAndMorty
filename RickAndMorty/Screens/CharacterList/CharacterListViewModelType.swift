@@ -15,6 +15,8 @@ protocol CharacterListViewModelType {
     func returnNextCharacters() -> [GetAllCharactersResponseModel]
     func returnPagination() -> Bool
     func returnnextPageUrl() -> String
+    func filterCharacter(characterStatus: CharacterStatus, completion: @escaping () -> Void)
+    func returnFilteredCharacters() -> [GetAllCharactersResponseModel]
 }
 
 protocol CharacterListViewModelDelegate {

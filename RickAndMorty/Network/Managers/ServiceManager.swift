@@ -21,7 +21,8 @@ class ServiceManager {
 extension ServiceManager {
     
     func sendRequest<T:Codable>(pagination:Bool = false , request:RequestModel,completion: @escaping(Swift.Result<T, ErrorModel>)-> Void) {
-        if isPagination {
+        
+        if pagination {
             isPagination = true
         }
         
@@ -39,17 +40,17 @@ extension ServiceManager {
             
             
             if let results = responseModel.results, let nextPage = responseModel.info?.next {
-                self.defaults.set(nextPage, forKey: "nextPage")
+                self.defaults.set(nextPage, forKey: Constant.UserSessionConstant.nextPage)
                 completion(Result.success(results))
+                if pagination {
+                    self.isPagination = false
+                }
             }else {
                 print(response.error?.errorDescription ?? "\(String(describing: response.error?.errorDescription))")
                 print(responseModel.error ?? "!")
                 completion(Result.failure(ErrorModel(responseModel.error ?? "\(ErrorModel.genealError())")))
             }
             
-            if pagination {
-                self.isPagination = false
-            }
         }
     }
     
@@ -63,7 +64,6 @@ extension ServiceManager {
             }
             
             completion(Result.success(responseModel))
-            
         }
     }
 }

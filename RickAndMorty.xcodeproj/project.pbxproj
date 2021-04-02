@@ -19,9 +19,11 @@
 		EB6F3AF62615308B007CB59D /* CharacterDetailViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F3AF52615308B007CB59D /* CharacterDetailViewModelType.swift */; };
 		EB6F3AFB26153094007CB59D /* CharacterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F3AFA26153094007CB59D /* CharacterDetailViewModel.swift */; };
 		EB6F3B00261530A3007CB59D /* CharacterDetailBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F3AFF261530A3007CB59D /* CharacterDetailBuilder.swift */; };
+		EB704D7426164F3A00E9D15F /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB704D7326164F3A00E9D15F /* FilterViewController.swift */; };
+		EB704D7C2616503000E9D15F /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB704D7B2616503000E9D15F /* PresentationController.swift */; };
+		EB704D83261650F400E9D15F /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB704D82261650F400E9D15F /* UIView+Extension.swift */; };
 		EBC5ADAA261347A200F44A04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC5ADA9261347A200F44A04 /* AppDelegate.swift */; };
 		EBC5ADAC261347A200F44A04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC5ADAB261347A200F44A04 /* SceneDelegate.swift */; };
-		EBC5ADAE261347A200F44A04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC5ADAD261347A200F44A04 /* ViewController.swift */; };
 		EBC5ADB3261347A400F44A04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBC5ADB2261347A400F44A04 /* Assets.xcassets */; };
 		EBC5ADB6261347A400F44A04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBC5ADB4261347A400F44A04 /* LaunchScreen.storyboard */; };
 		EBC5ADC1261347A400F44A04 /* RickAndMortyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC5ADC0261347A400F44A04 /* RickAndMortyTests.swift */; };
@@ -39,6 +41,8 @@
 		EBC5AF382613A97F00F44A04 /* GetFilterRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC5AF372613A97F00F44A04 /* GetFilterRequestModel.swift */; };
 		EBC5AF422613AF7700F44A04 /* Character.json in Resources */ = {isa = PBXBuildFile; fileRef = EBC5AF412613AF7700F44A04 /* Character.json */; };
 		EBC5AF522613BDC600F44A04 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC5AF512613BDC600F44A04 /* CharacterListViewController.swift */; };
+		EBE745D12617550A00613E8E /* UserSessionConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE745D02617550A00613E8E /* UserSessionConstant.swift */; };
+		EBE745DA261755A800613E8E /* NotificationCenterConsant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE745D9261755A800613E8E /* NotificationCenterConsant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,10 +81,12 @@
 		EB6F3AF52615308B007CB59D /* CharacterDetailViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewModelType.swift; sourceTree = "<group>"; };
 		EB6F3AFA26153094007CB59D /* CharacterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewModel.swift; sourceTree = "<group>"; };
 		EB6F3AFF261530A3007CB59D /* CharacterDetailBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailBuilder.swift; sourceTree = "<group>"; };
+		EB704D7326164F3A00E9D15F /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		EB704D7B2616503000E9D15F /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		EB704D82261650F400E9D15F /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		EBC5ADA6261347A200F44A04 /* RickAndMorty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMorty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBC5ADA9261347A200F44A04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EBC5ADAB261347A200F44A04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EBC5ADAD261347A200F44A04 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EBC5ADB2261347A400F44A04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EBC5ADB5261347A400F44A04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EBC5ADB7261347A400F44A04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -103,6 +109,8 @@
 		EBC5AF372613A97F00F44A04 /* GetFilterRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFilterRequestModel.swift; sourceTree = "<group>"; };
 		EBC5AF412613AF7700F44A04 /* Character.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Character.json; sourceTree = "<group>"; };
 		EBC5AF512613BDC600F44A04 /* CharacterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewController.swift; sourceTree = "<group>"; };
+		EBE745D02617550A00613E8E /* UserSessionConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionConstant.swift; sourceTree = "<group>"; };
+		EBE745D9261755A800613E8E /* NotificationCenterConsant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterConsant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +170,23 @@
 			path = CharacterDetail;
 			sourceTree = "<group>";
 		};
+		EB704D7226164F2700E9D15F /* FilterView */ = {
+			isa = PBXGroup;
+			children = (
+				EB704D7326164F3A00E9D15F /* FilterViewController.swift */,
+				EB704D7B2616503000E9D15F /* PresentationController.swift */,
+			);
+			path = FilterView;
+			sourceTree = "<group>";
+		};
+		EB704D80261650DE00E9D15F /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				EB704D82261650F400E9D15F /* UIView+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		EBC5AD9D261347A200F44A04 = {
 			isa = PBXGroup;
 			children = (
@@ -187,12 +212,12 @@
 		EBC5ADA8261347A200F44A04 /* RickAndMorty */ = {
 			isa = PBXGroup;
 			children = (
+				EB704D80261650DE00E9D15F /* Extension */,
 				EBC5AF4F2613BDA600F44A04 /* Screens */,
 				EBC5AF162613616C00F44A04 /* Constants */,
 				EBC5ADE72613498200F44A04 /* Network */,
 				EBC5ADE6261348FD00F44A04 /* Resources */,
 				EBC5ADE5261348B700F44A04 /* App */,
-				EBC5ADAD261347A200F44A04 /* ViewController.swift */,
 				EBC5ADB7261347A400F44A04 /* Info.plist */,
 			);
 			path = RickAndMorty;
@@ -295,8 +320,10 @@
 		EBC5AF162613616C00F44A04 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				EBC5AF172613617D00F44A04 /* NetworkConstants */,
 				EBC5AF182613619200F44A04 /* Constant.swift */,
+				EBC5AF172613617D00F44A04 /* NetworkConstants */,
+				EBE745D82617558700613E8E /* NotificationCenterConsant */,
+				EBE745CF261754E800613E8E /* UserSessionConstant */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -336,6 +363,7 @@
 		EBC5AF4F2613BDA600F44A04 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				EB704D7226164F2700E9D15F /* FilterView */,
 				EB6F3AEC26153057007CB59D /* CharacterDetail */,
 				EBC5AF502613BDAC00F44A04 /* CharacterList */,
 			);
@@ -352,6 +380,22 @@
 				EB6F3A47261491F4007CB59D /* CharacterListBuilder.swift */,
 			);
 			path = CharacterList;
+			sourceTree = "<group>";
+		};
+		EBE745CF261754E800613E8E /* UserSessionConstant */ = {
+			isa = PBXGroup;
+			children = (
+				EBE745D02617550A00613E8E /* UserSessionConstant.swift */,
+			);
+			path = UserSessionConstant;
+			sourceTree = "<group>";
+		};
+		EBE745D82617558700613E8E /* NotificationCenterConsant */ = {
+			isa = PBXGroup;
+			children = (
+				EBE745D9261755A800613E8E /* NotificationCenterConsant.swift */,
+			);
+			path = NotificationCenterConsant;
 			sourceTree = "<group>";
 		};
 		EEE9C67B4604E419B4004C94 /* Pods */ = {
@@ -608,14 +652,16 @@
 				EBC5AE072613522A00F44A04 /* ErrorModel.swift in Sources */,
 				EBC5AF082613605100F44A04 /* GetAllCharactersResponseModel.swift in Sources */,
 				EB6F3A532614B3CE007CB59D /* CharacterListTableViewCell.swift in Sources */,
-				EBC5ADAE261347A200F44A04 /* ViewController.swift in Sources */,
 				EB6F3AEE26153074007CB59D /* CharacterDetailViewController.swift in Sources */,
 				EBC5ADAA261347A200F44A04 /* AppDelegate.swift in Sources */,
 				EBC5AF21261361B100F44A04 /* NetworkConstant.swift in Sources */,
 				EBC5ADAC261347A200F44A04 /* SceneDelegate.swift in Sources */,
 				EB6F3AFB26153094007CB59D /* CharacterDetailViewModel.swift in Sources */,
+				EBE745D12617550A00613E8E /* UserSessionConstant.swift in Sources */,
+				EB704D7C2616503000E9D15F /* PresentationController.swift in Sources */,
 				EBC5ADF226134EFB00F44A04 /* ResponseModel.swift in Sources */,
 				EBC5AF522613BDC600F44A04 /* CharacterListViewController.swift in Sources */,
+				EB704D83261650F400E9D15F /* UIView+Extension.swift in Sources */,
 				EBC5AE192613559400F44A04 /* GetAllCharactersRequestModel.swift in Sources */,
 				EB6F3A4D26149330007CB59D /* AppContainer.swift in Sources */,
 				EBC5AF382613A97F00F44A04 /* GetFilterRequestModel.swift in Sources */,
@@ -624,10 +670,12 @@
 				EBC5AE0D2613548100F44A04 /* Services.swift in Sources */,
 				EB6F3A4326148B57007CB59D /* CharacterListViewModelType.swift in Sources */,
 				EB6F3A3E26148ACA007CB59D /* CharacterListViewModel.swift in Sources */,
+				EB704D7426164F3A00E9D15F /* FilterViewController.swift in Sources */,
 				EB6F3AF62615308B007CB59D /* CharacterDetailViewModelType.swift in Sources */,
 				EBC5AF192613619200F44A04 /* Constant.swift in Sources */,
 				EB6F3A48261491F4007CB59D /* CharacterListBuilder.swift in Sources */,
 				EBC5ADEA26134A2E00F44A04 /* RequestModel.swift in Sources */,
+				EBE745DA261755A800613E8E /* NotificationCenterConsant.swift in Sources */,
 				EBC5ADF82613517C00F44A04 /* ServiceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -163,10 +163,9 @@ class CharacterDetailViewController: UIViewController {
     }
     
     private func setConstraints() {
-        
         let padding: CGFloat = 8
+        
         NSLayoutConstraint.activate([
-            
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -232,6 +231,5 @@ extension CharacterDetailViewController: CharacterDetailViewModelDelegate {
         if let lastSeenEpisodeName = character.lastSeenEpisodeName {
             self.lastSeenEpisodeNAmeLabel.text = "Last Seen Episode: Episode " + lastSeenEpisodeName
         }
-        
     }
 }
