@@ -53,8 +53,6 @@ class FilterViewController: UIViewController {
         return button
     }()
     
-    
-    
     // MARK: Properties
     
     private var hasSetPointOrigin = false
@@ -101,7 +99,7 @@ class FilterViewController: UIViewController {
             modalview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             modalview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             modalview.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            modalview.heightAnchor.constraint(equalToConstant: view.frame.height * 0.5),
+            modalview.heightAnchor.constraint(equalToConstant: view.frame.height * 0.3),
             
             picker.leadingAnchor.constraint(equalTo: modalview.leadingAnchor, constant: padding * 4),
             picker.trailingAnchor.constraint(equalTo: modalview.trailingAnchor, constant: -padding * 4),

@@ -43,6 +43,7 @@
 		EBC5AF522613BDC600F44A04 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC5AF512613BDC600F44A04 /* CharacterListViewController.swift */; };
 		EBE745D12617550A00613E8E /* UserSessionConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE745D02617550A00613E8E /* UserSessionConstant.swift */; };
 		EBE745DA261755A800613E8E /* NotificationCenterConsant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE745D9261755A800613E8E /* NotificationCenterConsant.swift */; };
+		EBE745E92617869100613E8E /* CharacterListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE745E82617869100613E8E /* CharacterListCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		EBC5AF512613BDC600F44A04 /* CharacterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewController.swift; sourceTree = "<group>"; };
 		EBE745D02617550A00613E8E /* UserSessionConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionConstant.swift; sourceTree = "<group>"; };
 		EBE745D9261755A800613E8E /* NotificationCenterConsant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterConsant.swift; sourceTree = "<group>"; };
+		EBE745E82617869100613E8E /* CharacterListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,6 +375,7 @@
 		EBC5AF502613BDAC00F44A04 /* CharacterList */ = {
 			isa = PBXGroup;
 			children = (
+				EBE745E72617866500613E8E /* CharacterListCollectonViewCell */,
 				EB6F3A512614B3AB007CB59D /* CharacterListTableViewCell */,
 				EBC5AF512613BDC600F44A04 /* CharacterListViewController.swift */,
 				EB6F3A3D26148ACA007CB59D /* CharacterListViewModel.swift */,
@@ -396,6 +399,14 @@
 				EBE745D9261755A800613E8E /* NotificationCenterConsant.swift */,
 			);
 			path = NotificationCenterConsant;
+			sourceTree = "<group>";
+		};
+		EBE745E72617866500613E8E /* CharacterListCollectonViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				EBE745E82617869100613E8E /* CharacterListCollectionViewCell.swift */,
+			);
+			path = CharacterListCollectonViewCell;
 			sourceTree = "<group>";
 		};
 		EEE9C67B4604E419B4004C94 /* Pods */ = {
@@ -668,6 +679,7 @@
 				EB6F3B00261530A3007CB59D /* CharacterDetailBuilder.swift in Sources */,
 				EBC5AF27261363F300F44A04 /* GetCharacterREquestModel.swift in Sources */,
 				EBC5AE0D2613548100F44A04 /* Services.swift in Sources */,
+				EBE745E92617869100613E8E /* CharacterListCollectionViewCell.swift in Sources */,
 				EB6F3A4326148B57007CB59D /* CharacterListViewModelType.swift in Sources */,
 				EB6F3A3E26148ACA007CB59D /* CharacterListViewModel.swift in Sources */,
 				EB704D7426164F3A00E9D15F /* FilterViewController.swift in Sources */,

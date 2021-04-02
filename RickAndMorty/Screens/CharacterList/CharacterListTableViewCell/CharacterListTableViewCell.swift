@@ -141,8 +141,8 @@ class CharacterListTableViewCell: UITableViewCell {
             characterNameLabel.trailingAnchor.constraint(equalTo: verticalStack.trailingAnchor, constant: -padding),
             
             characterSatatusLabel.topAnchor.constraint(equalTo: characterNameLabel.bottomAnchor, constant: padding),
-            characterNameLabel.leadingAnchor.constraint(equalTo: verticalStack.leadingAnchor, constant: padding),
-            characterNameLabel.trailingAnchor.constraint(equalTo: verticalStack.trailingAnchor, constant: -padding),
+            characterSatatusLabel.leadingAnchor.constraint(equalTo: verticalStack.leadingAnchor, constant: padding),
+            characterSatatusLabel.trailingAnchor.constraint(equalTo: verticalStack.trailingAnchor, constant: -padding),
             
             characterSpeciesLabel.topAnchor.constraint(equalTo: characterSatatusLabel.bottomAnchor, constant: padding),
             characterSpeciesLabel.leadingAnchor.constraint(equalTo: verticalStack.leadingAnchor, constant: padding),

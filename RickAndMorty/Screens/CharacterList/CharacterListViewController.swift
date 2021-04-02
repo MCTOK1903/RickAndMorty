@@ -19,13 +19,25 @@ class CharacterListViewController: UIViewController {
         return tableView
     }()
     
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .white
+        collectionView.register(CharacterListCollectionViewCell.self, forCellWithReuseIdentifier: "characterListCollectionViewCell")
+        collectionView.showsVerticalScrollIndicator = false
+        return collectionView
+    }()
+    
     // MARK: Properties
     
     let service = Services()
-    private var allChacters: [GetAllCharactersResponseModel] = []
-    private var filteredChacters: [GetAllCharactersResponseModel] = []
-    private var showAllCharacter: [GetAllCharactersResponseModel] = []
-    private var isFiltered: Bool = false
+    private lazy var allChacters: [GetAllCharactersResponseModel] = []
+    private lazy var filteredChacters: [GetAllCharactersResponseModel] = []
+    private lazy var showAllCharacter: [GetAllCharactersResponseModel] = []
+    private lazy var isFiltered: Bool = false
+    private lazy var isGridView: Bool = true
     private var viewModel: CharacterListViewModelType {
         didSet {
             viewModel.delegate = self
@@ -51,9 +63,12 @@ class CharacterListViewController: UIViewController {
         viewModel = CharacterListViewModel(service: service)
         viewModel.loadAllCharacter()
         
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        view.addSubview(collectionView)
+        
         tableView.delegate = self
         tableView.dataSource = self
-        
         view.addSubview(tableView)
         
         addNotification()
@@ -63,16 +78,45 @@ class CharacterListViewController: UIViewController {
     private func setUpUI() {
         view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filterTapped))
+        if isGridView {
+            self.collectionView.isHidden = false
+            self.tableView.isHidden = true
+            
+            NSLayoutConstraint.activate([
+                collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ])
+        } else {
+            self.tableView.isHidden = false
+            self.collectionView.isHidden = true
+            
+            NSLayoutConstraint.activate([
+                tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ])
+        }
         
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        setUpNavigationBar()
     }
     
+    private func setUpNavigationBar() {
+        
+        var buttonTitle: String = "Grid"
+        
+        if isGridView {
+            buttonTitle = "List"
+        } else {
+            buttonTitle = "Grid"
+        }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filterTapped))
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: buttonTitle, style: .plain, target: self, action: #selector(changeView))
+    }
     
     private func addNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(getFilteredCharacter(notification:)), name: NSNotification.Name(rawValue: Constant.NotificationCenterConsant.getFilteredCharacter), object: nil)
@@ -86,11 +130,22 @@ class CharacterListViewController: UIViewController {
         present(vc, animated: true)
     }
     
+    @objc func changeView() {
+        self.isGridView = !isGridView
+        
+        self.setUpUI()
+    }
+    
     @objc func clearFilter(notification: NSNotification) {
         viewModel.loadAllCharacter()
         DispatchQueue.main.async {
-            self.tableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-            self.tableView.reloadData()
+            if self.isGridView {
+                self.collectionView.reloadData()
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            } else {
+                self.tableView.reloadData()
+                self.tableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            }
         }
     }
     
@@ -103,8 +158,13 @@ class CharacterListViewController: UIViewController {
                 self.showAllCharacter = self.filteredChacters
                 self.isFiltered = true
                 DispatchQueue.main.async {
-                    self.tableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-                    self.tableView.reloadData()
+                    if self.isGridView {
+                        self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                        self.collectionView.reloadData()
+                    } else {
+                        self.tableView.reloadData()
+                        self.tableView.scrollToRow(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                    }
                 }
             }
         }
@@ -125,7 +185,12 @@ extension CharacterListViewController: CharacterListViewModelDelegate {
             self.allChacters = characters
             self.showAllCharacter = self.allChacters
             DispatchQueue.main.async { [weak self] in
-                self?.tableView.reloadData()
+                guard let self = self else { return }
+                if self.isGridView {
+                    self.collectionView.reloadData()
+                } else {
+                    self.tableView.reloadData()
+                }
             }
         }
     }
@@ -159,7 +224,6 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         let screenHeight = view.frame.height
         let cellHeight: CGFloat = screenHeight * 0.2
         
@@ -172,7 +236,16 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
-        if position > tableView.contentSize.height-50-scrollView.frame.size.height {
+        
+        var scrollHeight: CGFloat = 0.0
+        
+        if isGridView {
+            scrollHeight = self.collectionView.contentSize.height
+        } else {
+            scrollHeight = self.tableView.contentSize.height
+        }
+        
+        if position > scrollHeight-50-scrollView.frame.size.height {
             
             guard !viewModel.returnPagination() else {
                 return
@@ -183,10 +256,44 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
                 self.viewModel.getNextCharacters(pagination: true, nextUrl: "/character/?" + nextPageUrl) {
                     self.showAllCharacter = self.viewModel.returnNextCharacters()
                     DispatchQueue.main.async { [weak self] in
-                        self?.tableView.reloadData()
+                        guard let self = self else { return }
+                        
+                        if self.isGridView {
+                            self.collectionView.reloadData()
+                        } else {
+                            self.tableView.reloadData()
+                        }
                     }
                 }
             }
         }
+    }
+}
+
+extension CharacterListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.showAllCharacter.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "characterListCollectionViewCell", for: indexPath) as? CharacterListCollectionViewCell else { return UICollectionViewCell() }
+        cell.character = showAllCharacter[indexPath.item]
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.selectCharacter(with: showAllCharacter[indexPath.item])
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let colums: CGFloat = 2
+        let collectioViewWith = collectionView.bounds.width
+        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+        let spaceBetweenCells = flowLayout.minimumInteritemSpacing * (colums - 1)
+        let adjustedWith = collectioViewWith - spaceBetweenCells
+        let width: CGFloat = floor(adjustedWith / colums)
+        let height = view.frame.height/4
+        return CGSize(width: width, height: height)
     }
 }
