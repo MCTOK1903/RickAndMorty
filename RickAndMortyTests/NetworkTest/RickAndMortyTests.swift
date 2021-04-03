@@ -19,24 +19,15 @@ class RickAndMortyTests: XCTestCase {
             }
             let data = try Data(contentsOf: url)
             let decoder = JSONDecoder()
-            let character = try decoder.decode(GetAllCharactersResponseModel.self, from: data)
+            let character = try decoder.decode([GetAllCharactersResponseModel].self, from: data)
             
             //Projede kullanilacak olanlar test edimistir.
-            
-            XCTAssertEqual(character.id, 1)
-            XCTAssertEqual(character.name, "Rick Sanchez")
-            XCTAssertEqual(character.status, .alive)
-            XCTAssertEqual(character.species, "Human")
+            XCTAssertEqual(character.first?.id, 1)
+            XCTAssertEqual(character.first?.name, "Rick Sanchez")
+            XCTAssertEqual(character.first?.status, .alive)
+            XCTAssertEqual(character.first?.species, "Human")
         } catch {
             XCTFail()
         }
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }

@@ -41,6 +41,8 @@ final class CharacterListViewModel: CharacterListViewModelType {
             
             guard let self = self else { return }
             
+            self.notify(.setLoading(false))
+            
             switch result {
             case .success(let characters):
                 self.characters.append(contentsOf: characters)
