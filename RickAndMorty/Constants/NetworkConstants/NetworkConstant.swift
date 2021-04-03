@@ -11,5 +11,6 @@ extension Constant {
     final class NetworkConstant {
         static let baseURL = "https://rickandmortyapi.com/api"
         static let allCharacters = "/character"
+        static let getNextCharacterPath = allCharacters + "/?"
     }
 }

@@ -14,6 +14,7 @@
 		EB20DFAB26189B3500DDAA2F /* MockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB20DFAA26189B3500DDAA2F /* MockService.swift */; };
 		EB20DFB326189D4600DDAA2F /* MockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB20DFB226189D4600DDAA2F /* MockView.swift */; };
 		EB20DFB926189E5A00DDAA2F /* ResourcesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB20DFB826189E5A00DDAA2F /* ResourcesLoader.swift */; };
+		EB20DFC22618ED7C00DDAA2F /* CharacterListVCConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB20DFC12618ED7C00DDAA2F /* CharacterListVCConstant.swift */; };
 		EB6F3A3E26148ACA007CB59D /* CharacterListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F3A3D26148ACA007CB59D /* CharacterListViewModel.swift */; };
 		EB6F3A4326148B57007CB59D /* CharacterListViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F3A4226148B57007CB59D /* CharacterListViewModelType.swift */; };
 		EB6F3A48261491F4007CB59D /* CharacterListBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F3A47261491F4007CB59D /* CharacterListBuilder.swift */; };
@@ -81,6 +82,7 @@
 		EB20DFAA26189B3500DDAA2F /* MockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockService.swift; sourceTree = "<group>"; };
 		EB20DFB226189D4600DDAA2F /* MockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockView.swift; sourceTree = "<group>"; };
 		EB20DFB826189E5A00DDAA2F /* ResourcesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesLoader.swift; sourceTree = "<group>"; };
+		EB20DFC12618ED7C00DDAA2F /* CharacterListVCConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListVCConstant.swift; sourceTree = "<group>"; };
 		EB6F3A3D26148ACA007CB59D /* CharacterListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewModel.swift; sourceTree = "<group>"; };
 		EB6F3A4226148B57007CB59D /* CharacterListViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewModelType.swift; sourceTree = "<group>"; };
 		EB6F3A47261491F4007CB59D /* CharacterListBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListBuilder.swift; sourceTree = "<group>"; };
@@ -194,6 +196,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		EB20DFC02618ED5800DDAA2F /* ViewContollerConstant */ = {
+			isa = PBXGroup;
+			children = (
+				EB20DFC12618ED7C00DDAA2F /* CharacterListVCConstant.swift */,
+			);
+			path = ViewContollerConstant;
+			sourceTree = "<group>";
+		};
 		EB6F3A512614B3AB007CB59D /* CharacterListTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,10 +215,10 @@
 		EB6F3AEC26153057007CB59D /* CharacterDetail */ = {
 			isa = PBXGroup;
 			children = (
-				EB6F3AED26153074007CB59D /* CharacterDetailViewController.swift */,
-				EB6F3AF52615308B007CB59D /* CharacterDetailViewModelType.swift */,
-				EB6F3AFA26153094007CB59D /* CharacterDetailViewModel.swift */,
 				EB6F3AFF261530A3007CB59D /* CharacterDetailBuilder.swift */,
+				EB6F3AED26153074007CB59D /* CharacterDetailViewController.swift */,
+				EB6F3AFA26153094007CB59D /* CharacterDetailViewModel.swift */,
+				EB6F3AF52615308B007CB59D /* CharacterDetailViewModelType.swift */,
 			);
 			path = CharacterDetail;
 			sourceTree = "<group>";
@@ -261,7 +271,6 @@
 				EBC5ADE72613498200F44A04 /* Network */,
 				EBC5ADE6261348FD00F44A04 /* Resources */,
 				EBC5ADE5261348B700F44A04 /* App */,
-				EBC5ADB7261347A400F44A04 /* Info.plist */,
 			);
 			path = RickAndMorty;
 			sourceTree = "<group>";
@@ -291,6 +300,7 @@
 		EBC5ADE5261348B700F44A04 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				EBC5ADB7261347A400F44A04 /* Info.plist */,
 				EBC5ADA9261347A200F44A04 /* AppDelegate.swift */,
 				EBC5ADAB261347A200F44A04 /* SceneDelegate.swift */,
 				EB6F3A4C26149330007CB59D /* AppContainer.swift */,
@@ -370,6 +380,7 @@
 				EBC5AF172613617D00F44A04 /* NetworkConstants */,
 				EBE745D82617558700613E8E /* NotificationCenterConsant */,
 				EBE745CF261754E800613E8E /* UserSessionConstant */,
+				EB20DFC02618ED5800DDAA2F /* ViewContollerConstant */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -409,9 +420,9 @@
 		EBC5AF4F2613BDA600F44A04 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				EB704D7226164F2700E9D15F /* FilterView */,
 				EB6F3AEC26153057007CB59D /* CharacterDetail */,
 				EBC5AF502613BDAC00F44A04 /* CharacterList */,
+				EB704D7226164F2700E9D15F /* FilterView */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -419,12 +430,12 @@
 		EBC5AF502613BDAC00F44A04 /* CharacterList */ = {
 			isa = PBXGroup;
 			children = (
-				EBE745E72617866500613E8E /* CharacterListCollectonViewCell */,
-				EB6F3A512614B3AB007CB59D /* CharacterListTableViewCell */,
+				EB6F3A47261491F4007CB59D /* CharacterListBuilder.swift */,
 				EBC5AF512613BDC600F44A04 /* CharacterListViewController.swift */,
 				EB6F3A3D26148ACA007CB59D /* CharacterListViewModel.swift */,
 				EB6F3A4226148B57007CB59D /* CharacterListViewModelType.swift */,
-				EB6F3A47261491F4007CB59D /* CharacterListBuilder.swift */,
+				EBE745E72617866500613E8E /* CharacterListCollectonViewCell */,
+				EB6F3A512614B3AB007CB59D /* CharacterListTableViewCell */,
 			);
 			path = CharacterList;
 			sourceTree = "<group>";
@@ -712,6 +723,7 @@
 				EBC5AF21261361B100F44A04 /* NetworkConstant.swift in Sources */,
 				EBC5ADAC261347A200F44A04 /* SceneDelegate.swift in Sources */,
 				EB6F3AFB26153094007CB59D /* CharacterDetailViewModel.swift in Sources */,
+				EB20DFC22618ED7C00DDAA2F /* CharacterListVCConstant.swift in Sources */,
 				EBE745D12617550A00613E8E /* UserSessionConstant.swift in Sources */,
 				EB704D7C2616503000E9D15F /* PresentationController.swift in Sources */,
 				EBC5ADF226134EFB00F44A04 /* ResponseModel.swift in Sources */,
@@ -907,7 +919,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5PWZ728Y8S;
-				INFOPLIST_FILE = RickAndMorty/Info.plist;
+				INFOPLIST_FILE = RickAndMorty/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -927,7 +939,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5PWZ728Y8S;
-				INFOPLIST_FILE = RickAndMorty/Info.plist;
+				INFOPLIST_FILE = RickAndMorty/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

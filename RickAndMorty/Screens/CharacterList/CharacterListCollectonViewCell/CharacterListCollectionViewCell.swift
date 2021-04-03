@@ -45,6 +45,7 @@ class CharacterListCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.numberOfLines = 0
         label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -56,6 +57,7 @@ class CharacterListCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.numberOfLines = 0
         label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -74,6 +76,7 @@ class CharacterListCollectionViewCell: UICollectionViewCell {
         let margins = UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 8)
               contentView.frame = contentView.frame.inset(by: margins)
               contentView.layer.cornerRadius = 8
+       
         configureCell()
     }
     
@@ -86,7 +89,6 @@ class CharacterListCollectionViewCell: UICollectionViewCell {
         verticalStack.addArrangedSubview(characterSpeciesLabel)
         
         characterImage.layer.cornerRadius = 16
-        
         configureAutoLayoutConstraints()
     }
     
@@ -99,12 +101,12 @@ class CharacterListCollectionViewCell: UICollectionViewCell {
             characterImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             characterImage.heightAnchor.constraint(equalToConstant: contentView.frame.height / 1.75),
             characterImage.widthAnchor.constraint(equalToConstant: contentView.frame.width / 2),
-//            characterImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: padding * 2),
             
             verticalStack.topAnchor.constraint(equalTo: characterImage.bottomAnchor, constant: padding),
             verticalStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             verticalStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             verticalStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
+            verticalStack.widthAnchor.constraint(equalToConstant: contentView.frame.width - padding * 2),
             
             characterNameLabel.topAnchor.constraint(equalTo: verticalStack.topAnchor),
             characterNameLabel.leadingAnchor.constraint(equalTo: verticalStack.leadingAnchor),

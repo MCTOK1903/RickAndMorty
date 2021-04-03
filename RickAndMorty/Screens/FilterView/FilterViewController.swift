@@ -21,6 +21,7 @@ class FilterViewController: UIViewController {
     let picker: UIPickerView = {
         let picker = UIPickerView()
         picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.tintColor = UIColor.black
         return picker
     }()
     
@@ -58,7 +59,7 @@ class FilterViewController: UIViewController {
     private var hasSetPointOrigin = false
     private var pointOrigin: CGPoint?
     private let source: [CharacterStatus] = [.alive, .dead, .unknown]
-    private var selectedStatus: CharacterStatus?
+    private var selectedStatus: CharacterStatus = .alive
     
     // MARK: init
     
@@ -171,5 +172,9 @@ extension FilterViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.selectedStatus = source[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        return NSAttributedString(string: source[row].rawValue, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
     }
 }

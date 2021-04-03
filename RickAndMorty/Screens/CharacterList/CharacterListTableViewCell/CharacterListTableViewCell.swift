@@ -46,6 +46,7 @@ class CharacterListTableViewCell: UITableViewCell {
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -56,6 +57,7 @@ class CharacterListTableViewCell: UITableViewCell {
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -66,6 +68,7 @@ class CharacterListTableViewCell: UITableViewCell {
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -73,7 +76,6 @@ class CharacterListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
     }
     
     override func layoutSubviews() {
@@ -86,8 +88,6 @@ class CharacterListTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     private func configureCellContent() {
@@ -135,6 +135,7 @@ class CharacterListTableViewCell: UITableViewCell {
             verticalStack.leadingAnchor.constraint(equalTo: characterImage.trailingAnchor, constant: padding * 2),
             verticalStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             verticalStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: padding),
+            verticalStack.widthAnchor.constraint(equalToConstant: contentView.frame.width - characterImage.frame.width - padding * 2),
             
             characterNameLabel.topAnchor.constraint(equalTo: verticalStack.topAnchor, constant: padding),
             characterNameLabel.leadingAnchor.constraint(equalTo: verticalStack.leadingAnchor, constant: padding),

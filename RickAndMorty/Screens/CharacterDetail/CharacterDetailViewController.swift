@@ -120,7 +120,6 @@ class CharacterDetailViewController: UIViewController {
         label.backgroundColor = .white
         return label
     }()
-
     
     // MARK: Init
     
@@ -228,7 +227,7 @@ class CharacterDetailViewController: UIViewController {
     @objc func tappedFav() {
         let defaults = UserDefaults.standard
         guard let characterId = self.characterId else { return }
-        var savedArray = defaults.object(forKey: "favoriteCharactersId") as? [Int] ?? [Int]()
+        var savedArray = defaults.object(forKey: Constant.UserSessionConstant.favoriteCharactersId) as? [Int] ?? [Int]()
         
         if isFavorite {
             savedArray = savedArray.filter({ $0 != characterId})
@@ -239,7 +238,7 @@ class CharacterDetailViewController: UIViewController {
             print("savedArray -> \(String(describing: savedArray))")
             isFavorite = !isFavorite
         }
-        defaults.set(savedArray, forKey: "favoriteCharactersId")
+        defaults.set(savedArray, forKey: Constant.UserSessionConstant.favoriteCharactersId)
         setUpNaviationBar()
     }
 }

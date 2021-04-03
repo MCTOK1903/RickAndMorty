@@ -11,5 +11,6 @@ extension Constant {
     final class UserSessionConstant {
         static let nextPage = "nextPage"
         static let selectedStatus = "selectedStatus"
+        static let favoriteCharactersId = "favoriteCharactersId"
     }
 }

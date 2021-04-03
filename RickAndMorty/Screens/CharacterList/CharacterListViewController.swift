@@ -14,8 +14,9 @@ class CharacterListViewController: UIViewController {
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(CharacterListTableViewCell.self, forCellReuseIdentifier: "characterListTableViewCell")
+        tableView.register(CharacterListTableViewCell.self, forCellReuseIdentifier: Constant.CharacterListVCConstant.characterListTableViewCell)
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .white
         return tableView
     }()
     
@@ -25,7 +26,7 @@ class CharacterListViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
-        collectionView.register(CharacterListCollectionViewCell.self, forCellWithReuseIdentifier: "characterListCollectionViewCell")
+        collectionView.register(CharacterListCollectionViewCell.self, forCellWithReuseIdentifier: Constant.CharacterListVCConstant.characterListCollectionViewCell)
         return collectionView
     }()
     
@@ -79,7 +80,7 @@ class CharacterListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        savedArray = defaults.object(forKey: "favoriteCharactersId") as? [Int] ?? [Int]()
+        savedArray = defaults.object(forKey: Constant.UserSessionConstant.favoriteCharactersId) as? [Int] ?? [Int]()
         isGridView ? collectionView.reloadData() : tableView.reloadData()
     }
     
@@ -119,11 +120,9 @@ class CharacterListViewController: UIViewController {
         
         if isGridView {
             buttonTitle = "List"
-        } else {
-            buttonTitle = "Grid"
         }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filterTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constant.CharacterListVCConstant.filterText, style: .plain, target: self, action: #selector(filterTapped))
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: buttonTitle, style: .plain, target: self, action: #selector(changeView))
     }
@@ -231,9 +230,8 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "characterListTableViewCell", for: indexPath) as? CharacterListTableViewCell else { return UITableViewCell() }
-        if savedArray.isEmpty {
-            showAllCharacter[indexPath.item].isFavorite = false
-        }
+        
+        showAllCharacter[indexPath.item].isFavorite = false
         
         for item in savedArray {
             if item == showAllCharacter[indexPath.item].id {
@@ -274,7 +272,7 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
             let nextPageUrl = viewModel.returnnextPageUrl()
             
             if nextPageUrl != "" {
-                self.viewModel.getNextCharacters(pagination: true, nextUrl: "/character/?" + nextPageUrl) {
+                self.viewModel.getNextCharacters(pagination: true, nextUrl: Constant.NetworkConstant.getNextCharacterPath + nextPageUrl) {
                     self.showAllCharacter = self.viewModel.returnNextCharacters()
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
@@ -300,11 +298,9 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "characterListCollectionViewCell", for: indexPath) as? CharacterListCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constant.CharacterListVCConstant.characterListCollectionViewCell, for: indexPath) as? CharacterListCollectionViewCell else { return UICollectionViewCell() }
         
-        if savedArray.isEmpty {
-            showAllCharacter[indexPath.item].isFavorite = false
-        }
+        showAllCharacter[indexPath.item].isFavorite = false
         
         for item in savedArray {
             if item == showAllCharacter[indexPath.item].id {
@@ -327,7 +323,7 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
         let spaceBetweenCells = flowLayout.minimumInteritemSpacing * (colums - 1)
         let adjustedWith = collectioViewWith - spaceBetweenCells
         let width: CGFloat = floor(adjustedWith / colums)
-        let height = view.frame.height/4
+        let height = view.frame.height/3
         return CGSize(width: width, height: height)
     }
 }
