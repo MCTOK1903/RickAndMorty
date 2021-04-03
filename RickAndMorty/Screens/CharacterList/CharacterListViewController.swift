@@ -26,7 +26,6 @@ class CharacterListViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
         collectionView.register(CharacterListCollectionViewCell.self, forCellWithReuseIdentifier: "characterListCollectionViewCell")
-        collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
     
@@ -38,6 +37,8 @@ class CharacterListViewController: UIViewController {
     private lazy var showAllCharacter: [GetAllCharactersResponseModel] = []
     private lazy var isFiltered: Bool = false
     private lazy var isGridView: Bool = true
+    private let defaults = UserDefaults.standard
+    private lazy var savedArray: [Int] = []
     private var viewModel: CharacterListViewModelType {
         didSet {
             viewModel.delegate = self
@@ -65,15 +66,24 @@ class CharacterListViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        view.addSubview(collectionView)
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        view.addSubview(collectionView)
         view.addSubview(tableView)
         
         addNotification()
         setUpUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        savedArray = defaults.object(forKey: "favoriteCharactersId") as? [Int] ?? [Int]()
+        isGridView ? collectionView.reloadData() : tableView.reloadData()
+    }
+    
+    // MARK: Funcs
     
     private func setUpUI() {
         view.backgroundColor = .white
@@ -204,13 +214,15 @@ extension CharacterListViewController: CharacterListViewModelDelegate {
     }
 }
 
+// MARK: - UIViewControllerTransitioningDelegate
+
 extension CharacterListViewController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         PresentationController(presentedViewController: presented, presenting: presenting)
     }
 }
 
-// MARK: - UITableViewDelegate, UITableViewDataSource
+// MARK: - UITableViewDelegate & UITableViewDataSource
 
 extension CharacterListViewController: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
@@ -219,6 +231,15 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "characterListTableViewCell", for: indexPath) as? CharacterListTableViewCell else { return UITableViewCell() }
+        if savedArray.isEmpty {
+            showAllCharacter[indexPath.item].isFavorite = false
+        }
+        
+        for item in savedArray {
+            if item == showAllCharacter[indexPath.item].id {
+                showAllCharacter[indexPath.item].isFavorite = true
+            }
+        }
         cell.character = showAllCharacter[indexPath.row]
         return cell
     }
@@ -246,11 +267,11 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
         }
         
         if position > scrollHeight-50-scrollView.frame.size.height {
-            
             guard !viewModel.returnPagination() else {
                 return
             }
-            var nextPageUrl = viewModel.returnnextPageUrl()
+            
+            let nextPageUrl = viewModel.returnnextPageUrl()
             
             if nextPageUrl != "" {
                 self.viewModel.getNextCharacters(pagination: true, nextUrl: "/character/?" + nextPageUrl) {
@@ -270,6 +291,8 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
     }
 }
 
+// MARK: - UICollectionViewDelegate & UICollectionViewDataSource
+
 extension CharacterListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -278,6 +301,17 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "characterListCollectionViewCell", for: indexPath) as? CharacterListCollectionViewCell else { return UICollectionViewCell() }
+        
+        if savedArray.isEmpty {
+            showAllCharacter[indexPath.item].isFavorite = false
+        }
+        
+        for item in savedArray {
+            if item == showAllCharacter[indexPath.item].id {
+                showAllCharacter[indexPath.item].isFavorite = true
+            }
+        }
+        
         cell.character = showAllCharacter[indexPath.item]
         return cell
     }

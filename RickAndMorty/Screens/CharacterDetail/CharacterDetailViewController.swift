@@ -13,6 +13,8 @@ class CharacterDetailViewController: UIViewController {
     // MARK: Properties
     
     private var viewModel: CharacterDetailViewModelType
+    private lazy var isFavorite: Bool = false
+    private var characterId: Int?
     
     // MARK: Views
     
@@ -160,6 +162,18 @@ class CharacterDetailViewController: UIViewController {
         scrollView.addSubview(lastSeenEpisodeNAmeLabel)
         
         setConstraints()
+        setUpNaviationBar()
+    }
+    
+    
+    private func setUpNaviationBar() {
+        var buttonTitle = "AddToFav"
+        
+        if isFavorite {
+            buttonTitle = "RemoveToFav"
+        }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: buttonTitle, style: .plain, target: self, action: #selector(tappedFav))
     }
     
     private func setConstraints() {
@@ -210,6 +224,24 @@ class CharacterDetailViewController: UIViewController {
             lastSeenEpisodeNAmeLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -padding * 2)
         ])
     }
+    
+    @objc func tappedFav() {
+        let defaults = UserDefaults.standard
+        guard let characterId = self.characterId else { return }
+        var savedArray = defaults.object(forKey: "favoriteCharactersId") as? [Int] ?? [Int]()
+        
+        if isFavorite {
+            savedArray = savedArray.filter({ $0 != characterId})
+            print("savedArray -> \(String(describing: savedArray))")
+            isFavorite = !isFavorite
+        } else {
+            savedArray.append(characterId)
+            print("savedArray -> \(String(describing: savedArray))")
+            isFavorite = !isFavorite
+        }
+        defaults.set(savedArray, forKey: "favoriteCharactersId")
+        setUpNaviationBar()
+    }
 }
 
 // MARK: - CharacterDetailViewModelDelegate
@@ -219,6 +251,7 @@ extension CharacterDetailViewController: CharacterDetailViewModelDelegate {
     func showDetail(_ character: GetAllCharactersResponseModel) {
         let urlImage = URL(string: character.image)
         self.characterImage.kf.setImage(with: urlImage)
+        self.characterId = character.id
         self.characterNameLabel.text = "Name: " + character.name
         self.characterStatusLabel.text = "Status: " + character.status.rawValue
         self.characterSpeicesLabel.text = "Species: " + character.species
@@ -230,6 +263,9 @@ extension CharacterDetailViewController: CharacterDetailViewModelDelegate {
         }
         if let lastSeenEpisodeName = character.lastSeenEpisodeName {
             self.lastSeenEpisodeNAmeLabel.text = "Last Seen Episode: Episode " + lastSeenEpisodeName
+        }
+        if let isFavorite = character.isFavorite {
+            self.isFavorite = isFavorite
         }
     }
 }

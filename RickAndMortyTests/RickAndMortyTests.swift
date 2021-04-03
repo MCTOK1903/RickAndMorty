@@ -25,7 +25,7 @@ class RickAndMortyTests: XCTestCase {
             
             XCTAssertEqual(character.id, 1)
             XCTAssertEqual(character.name, "Rick Sanchez")
-            XCTAssertEqual(character.status, "Alive")
+            XCTAssertEqual(character.status, .alive)
             XCTAssertEqual(character.species, "Human")
         } catch {
             XCTFail()
